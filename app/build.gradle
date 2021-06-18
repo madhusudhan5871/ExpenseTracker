@@ -5,10 +5,21 @@
  * For more details take a look at the 'Building Java & JVM projects' chapter in the Gradle
  * User Manual available at https://docs.gradle.org/7.0.2/userguide/building_java_projects.html
  */
-
+//buildscript {
+//    repositories {
+//        jcenter();
+//    }
+//
+//    dependencies {
+//        classpath 'com.bmuschko:gradle-tomcat-plugin:2.4.2'
+//    }
+//}
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
+    id 'war'
+    id 'eclipse'
+    //id 'com.bmuschko.tomcat' version "2.5"
 }
 
 repositories {
@@ -18,12 +29,37 @@ repositories {
 
 dependencies {
     // Use JUnit test framework.
-    testImplementation 'junit:junit:4.13.1'
+    testImplementation 'junit:junit:4.13'
 
     // This dependency is used by the application.
-    implementation 'com.google.guava:guava:30.0-jre'
+    implementation 'com.google.guava:guava:29.0-jre'
+	implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.4.10.Final'
+	implementation group: 'org.postgresql', name: 'postgresql', version: '42.1.4'
+	implementation group: 'com.google.inject', name: 'guice', version: '4.0'
+	
+	//resteasy dependencies
+	compile group: 'org.jboss.resteasy', name: 'resteasy-jaxrs', version: '3.6.0.Final'
+	compile group: 'org.jboss.resteasy', name: 'resteasy-guice', version: '3.6.0.Final'
+	
+	//jpa guice dependencies
+	compile group: 'com.google.inject.extensions', name: 'guice-persist', version: '4.2.0'
+	
+	//java servlet dependencies
+	compile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+	
+	
+	
+    //def tomcatVersion = '8.5.0'
+    //tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
+    //      "org.apache.tomcat.embed:tomcat-embed-logging-juli:8.5.2",
+    //       "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
+	
+	
 }
-
+//tomcat {
+//   httpProtocol = 'org.apache.coyote.http11.Http11Nio2Protocol'
+//    ajpProtocol  = 'org.apache.coyote.ajp.AjpNio2Protocol'
+//}
 application {
     // Define the main class for the application.
     mainClass = 'com.expensetracker.App'

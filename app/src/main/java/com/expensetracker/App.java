@@ -3,6 +3,11 @@
  */
 package com.expensetracker;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
+
+import com.expensetracker.db.Expense;
+
 public class App {
     public String getGreeting() {
         return "Hello World!";
@@ -10,5 +15,9 @@ public class App {
 
     public static void main(String[] args) {
         System.out.println(new App().getGreeting());
+        Expense expense = new Expense();
+        expense.setName("recharge");
+        EntityManager em = Persistence.createEntityManagerFactory("expenseTracker").createEntityManager();
+        em.persist(expense);
     }
 }
