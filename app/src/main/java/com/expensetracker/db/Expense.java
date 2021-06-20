@@ -1,13 +1,15 @@
 package com.expensetracker.db;
 
-import java.time.Instant;
 
-import javax.annotation.Generated;
+import java.util.Date;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Expense {
@@ -18,11 +20,22 @@ public class Expense {
 	@Column
 	private String name;
 
-	@Column
-	private String category;
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Category category;
 	
 	@Column
 	private Integer price;
+	
+	@Column
+	private Date date;
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
 
 	public Integer getId() {
 		return id;
@@ -40,14 +53,6 @@ public class Expense {
 		this.name = name;
 	}
 
-	public String getCategory() {
-		return category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
-	}
-
 	public Integer getPrice() {
 		return price;
 	}
@@ -56,5 +61,12 @@ public class Expense {
 		this.price = price;
 	}
 
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
 
 }

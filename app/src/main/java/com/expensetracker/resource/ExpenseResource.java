@@ -1,6 +1,7 @@
 package com.expensetracker.resource;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -17,7 +18,9 @@ import javax.ws.rs.core.Context;
 import org.jboss.resteasy.spi.HttpRequest;
 import org.jboss.resteasy.spi.HttpResponse;
 
+import com.expensetracker.db.Category;
 import com.expensetracker.db.Expense;
+import com.expensetracker.service.CategoryServiceImpl;
 import com.expensetracker.service.ExpenseServiceImpl;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -32,24 +35,39 @@ public class ExpenseResource {
 
 	@Inject
 	private ExpenseServiceImpl expenseService;
+	
+	@Inject
+	private CategoryServiceImpl categoryService;
 
 	@POST
 	@Path("add")
-	public void add(@Context HttpServletRequest req, @Context HttpServletResponse res) throws IOException {
-		Expense expense = new Expense();
-		expense.setName(req.getParameter("name"));
-		expense.setPrice(Integer.parseInt(req.getParameter("price")));
-		expense.setCategory(req.getParameter("category"));
-		expenseService.add(expense);
+	public void add(@Context HttpServletRequest req, @Context HttpServletResponse res) throws IOException,ParseException {
+		expenseService.add(req);
 		res.sendRedirect("view");
+	}
+	
+	@GET
+	@Path("add-view")
+	public void addView(@Context HttpServletRequest req, @Context HttpServletResponse res) throws IOException, ServletException {
+		List<Category> categoryList = categoryService.findAll();
+		req.setAttribute("categoryList", categoryList);
+		req.getRequestDispatcher("/add.jsp").forward(req,res);
+	}
+	
+	@GET
+	@Path("update-view")
+	public void updateView(@Context HttpServletRequest req, @Context HttpServletResponse res) throws IOException,ServletException{
+		Expense expense = expenseService.view(Integer.parseInt(req.getParameter("id")));
+		req.setAttribute("expense", expense);
+		req.getRequestDispatcher("/update.jsp").forward(req, res);
 	}
 
 	@GET
 	@Path("view")
 	public void viewAll(@Context HttpServletRequest req, @Context HttpServletResponse res)
 			throws ServletException, IOException {
-		req.setAttribute("expenseList", expenseService.viewAll());
-		req.getRequestDispatcher("/view.html").forward(req, res);
+		req.setAttribute("expenseList", expenseService.viewAll(req));
+		req.getRequestDispatcher("/view.jsp").forward(req, res);
 	}
 
 	@GET
@@ -68,9 +86,9 @@ public class ExpenseResource {
 		res.sendRedirect("view");
 	}
 
-	@GET
+	@POST
 	@Path("update")
-	public void update(@Context HttpServletRequest req, @Context HttpServletResponse res) throws IOException {
+	public void update(@Context HttpServletRequest req, @Context HttpServletResponse res) throws IOException,ParseException {
 		expenseService.update(req);
 		res.sendRedirect("view");
 	}
