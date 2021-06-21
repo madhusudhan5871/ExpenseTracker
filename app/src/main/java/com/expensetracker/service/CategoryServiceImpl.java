@@ -14,16 +14,16 @@ import com.google.inject.persist.Transactional;
 @Transactional
 public class CategoryServiceImpl implements CategoryService {
 	@Inject
-	Provider<EntityManager> em;
+	Provider<EntityManager> emp;
 
 	public List<Category> findAll() {
-		List<Category> categoryList = em.get().createQuery("from Category").getResultList();
+		List<Category> categoryList = emp.get().createQuery("from Category").getResultList();
 		return categoryList;
 	}
 	
 	public void add(String categoryName) {
 		Category category = new Category();
 		category.setCategoryName(categoryName);
-		em.get().persist(category);
+		emp.get().persist(category);
 	}
 }

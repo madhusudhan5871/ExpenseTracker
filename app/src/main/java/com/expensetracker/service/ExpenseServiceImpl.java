@@ -21,7 +21,7 @@ import com.google.inject.persist.Transactional;
 @Transactional
 public class ExpenseServiceImpl implements ExpenseService{
 	@Inject
-	Provider<EntityManager> em;
+	Provider<EntityManager> emp;
 	
 	@Inject
 	private Logger logger;
@@ -31,11 +31,11 @@ public class ExpenseServiceImpl implements ExpenseService{
 			Expense expense = new Expense();
 			expense.setName(name);
 			expense.setPrice(price);
-			Category category = em.get().find(Category.class,categorystring);;
+			Category category = emp.get().find(Category.class,categorystring);;
 			expense.setCategory(category);
 			Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(date);
 			expense.setDate(date1);
-			em.get().persist(expense);
+			emp.get().persist(expense);
 		}catch(Exception e) {
 			logger.info("Unable to add. An exception has occured: "+e.getMessage()+e.getCause()+e.getStackTrace());
 			throw e;
@@ -43,19 +43,19 @@ public class ExpenseServiceImpl implements ExpenseService{
 	}
 	
 	public List<Expense> viewAll(String searchName){
-		List<Expense> expenseList = em.get().createQuery("select e from Expense e where e.name like ?1 order by e.name").setParameter(1, searchName).getResultList();
+		List<Expense> expenseList = emp.get().createQuery("select e from Expense e where e.name like ?1 order by e.name").setParameter(1, searchName).getResultList();
 		return expenseList;
 	}
 	
 	public Expense view(Integer id) {
-		Expense expense = em.get().find(Expense.class, id);
+		Expense expense = emp.get().find(Expense.class, id);
 		return expense;
 	}
 	
 	public void delete(Integer id) {
 		try {
-			Expense expense = em.get().find(Expense.class, id);
-			em.get().remove(expense);
+			Expense expense = emp.get().find(Expense.class, id);
+			emp.get().remove(expense);
 		}catch(Exception e) {
 			logger.info("Unable to delete. AN exception has occured: "+e.getMessage()+e.getCause()+e.getStackTrace());
 			throw e;
@@ -64,7 +64,7 @@ public class ExpenseServiceImpl implements ExpenseService{
 	
 	public void update(Integer id,String name, Integer price,String date) throws ParseException{
 		try {
-		Expense expense = em.get().find(Expense.class, id);
+		Expense expense = emp.get().find(Expense.class, id);
 		expense.setPrice(price);
 		expense.setName(name);
 		Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(date);
