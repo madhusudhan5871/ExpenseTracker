@@ -20,7 +20,9 @@ import org.jboss.resteasy.spi.HttpResponse;
 
 import com.expensetracker.db.Category;
 import com.expensetracker.db.Expense;
+import com.expensetracker.service.CategoryService;
 import com.expensetracker.service.CategoryServiceImpl;
+import com.expensetracker.service.ExpenseService;
 import com.expensetracker.service.ExpenseServiceImpl;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -34,10 +36,10 @@ public class ExpenseResource {
 	private EntityManager em;
 
 	@Inject
-	private ExpenseServiceImpl expenseService;
+	private ExpenseService expenseService;
 	
 	@Inject
-	private CategoryServiceImpl categoryService;
+	private CategoryService categoryService;
 
 	@POST
 	@Path("add")

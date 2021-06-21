@@ -13,7 +13,7 @@ import com.google.inject.persist.Transactional;
 
 @Singleton
 @Transactional
-public class CategoryServiceImpl {
+public class CategoryServiceImpl implements CategoryService{
 	@Inject
 	Provider<EntityManager> em;
 	

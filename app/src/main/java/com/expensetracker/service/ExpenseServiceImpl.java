@@ -19,7 +19,7 @@ import com.google.inject.persist.Transactional;
 
 @Singleton
 @Transactional
-public class ExpenseServiceImpl {
+public class ExpenseServiceImpl implements ExpenseService{
 	@Inject
 	Provider<EntityManager> em;
 	
