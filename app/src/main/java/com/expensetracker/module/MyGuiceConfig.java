@@ -24,4 +24,3 @@ public class MyGuiceConfig extends GuiceResteasyBootstrapServletContextListener 
 		injector.getInstance(PersistService.class).start();
 	}
 }
-	

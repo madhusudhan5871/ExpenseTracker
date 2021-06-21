@@ -1,6 +1,5 @@
 package com.expensetracker.db;
 
-
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -22,10 +21,10 @@ public class Expense {
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Category category;
-	
+
 	@Column
 	private Integer price;
-	
+
 	@Column
 	private Date date;
 

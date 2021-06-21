@@ -10,8 +10,8 @@ import javax.persistence.OneToMany;
 public class Category {
 	@Id
 	private String categoryName;
-	
-	@OneToMany(mappedBy="category")
+
+	@OneToMany(mappedBy = "category")
 	private List<Expense> expense;
 
 	public String getCategoryName() {
@@ -21,8 +21,6 @@ public class Category {
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
-
-	
 
 	public List<Expense> getExpense() {
 		return expense;
