@@ -40,11 +40,11 @@
 <form action="add" method="post">
   <div class="form-group">
     <label for="exampleInputEmail1">What's the expense?</label>
-    <input type="text" name = "name" class="form-control" id="exampleInputEmail1" placeholder="What's the expense">
+    <input type="text" name = "name" required class="form-control" id="exampleInputEmail1" placeholder="What's the expense">
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1">What's the Price?</label>
-    <input type="number" name="price" class="form-control" id="exampleInputPassword1" placeholder="What's the price?">
+    <input type="number" name="price" required class="form-control" id="exampleInputPassword1" placeholder="What's the price?">
   </div>
    <div class="form-group">
     <label for="exampleFormControlSelect1">Add to an existing category</label>
@@ -63,7 +63,7 @@
   </div>
      <div class="form-group">
     <label for="exampleInputPasswor32">Date</label>
-    <input type="date" name="date" class="form-control" id="exampleInputPassword32" placeholder="Date">
+    <input type="date" name="date" required class="form-control" id="exampleInputPassword32" placeholder="Date">
   </div>
 
   <button type="submit" class="btn btn-lg btn-block btn-outline-primary">Submit</button>
