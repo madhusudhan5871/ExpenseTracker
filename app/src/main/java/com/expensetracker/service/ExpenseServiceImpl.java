@@ -26,15 +26,14 @@ public class ExpenseServiceImpl implements ExpenseService{
 	@Inject
 	private Logger logger;
 	
-	public void add(@Context HttpServletRequest req) throws ParseException {
+	public void add(String name,Integer price,String date,String categorystring) throws ParseException {
 		try{	
 			Expense expense = new Expense();
-			expense.setName(req.getParameter("name"));
-			expense.setPrice(Integer.parseInt(req.getParameter("price")));
-			//expense.setCategory(req.getParameter("category"));
-			Category category = em.get().find(Category.class, req.getParameter("category"));;
+			expense.setName(name);
+			expense.setPrice(price);
+			Category category = em.get().find(Category.class,categorystring);;
 			expense.setCategory(category);
-			Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("date"));
+			Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(date);
 			expense.setDate(date1);
 			em.get().persist(expense);
 		}catch(Exception e) {
@@ -43,8 +42,7 @@ public class ExpenseServiceImpl implements ExpenseService{
 		}
 	}
 	
-	public List<Expense> viewAll(@Context HttpServletRequest req){
-		String searchName = req.getParameterMap().containsKey("searchname")?"%"+req.getParameter("searchname")+"%":"%";
+	public List<Expense> viewAll(String searchName){
 		List<Expense> expenseList = em.get().createQuery("select e from Expense e where e.name like ?1 order by e.name").setParameter(1, searchName).getResultList();
 		return expenseList;
 	}
@@ -64,12 +62,12 @@ public class ExpenseServiceImpl implements ExpenseService{
 		}
 	}
 	
-	public void update(@Context HttpServletRequest req) throws ParseException{
+	public void update(Integer id,String name, Integer price,String date) throws ParseException{
 		try {
-		Expense expense = em.get().find(Expense.class, Integer.parseInt(req.getParameter("id")));
-		expense.setPrice(Integer.parseInt(req.getParameter("price")));
-		expense.setName(req.getParameter("name"));
-		Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("date"));
+		Expense expense = em.get().find(Expense.class, id);
+		expense.setPrice(price);
+		expense.setName(name);
+		Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(date);
 		expense.setDate(date1);
 		}catch(Exception e) {
 			logger.info("Unable to update. An exception has occured "+e.getMessage()+e.getCause()+e.getStackTrace());

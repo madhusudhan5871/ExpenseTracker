@@ -33,7 +33,11 @@ public class ExpenseResource {
 	@Path("add")
 	public void add(@Context HttpServletRequest req, @Context HttpServletResponse res)
 			throws IOException, ParseException {
-		expenseService.add(req);
+		String name = req.getParameter("name");
+		String date = req.getParameter("date");
+		String category = req.getParameter("category");
+		Integer price = Integer.parseInt(req.getParameter("price"));
+		expenseService.add(name,price,date,category);
 		res.sendRedirect("view");
 	}
 
@@ -59,7 +63,8 @@ public class ExpenseResource {
 	@Path("view")
 	public void viewAll(@Context HttpServletRequest req, @Context HttpServletResponse res)
 			throws ServletException, IOException {
-		req.setAttribute("expenseList", expenseService.viewAll(req));
+		String searchName = req.getParameterMap().containsKey("searchname")?"%"+req.getParameter("searchname")+"%":"%";
+		req.setAttribute("expenseList", expenseService.viewAll(searchName));
 		req.getRequestDispatcher("/view.jsp").forward(req, res);
 	}
 
@@ -75,7 +80,11 @@ public class ExpenseResource {
 	@Path("update")
 	public void update(@Context HttpServletRequest req, @Context HttpServletResponse res)
 			throws IOException, ParseException {
-		expenseService.update(req);
+		Integer id = Integer.parseInt(req.getParameter("id"));
+		String date = req.getParameter("date");
+		String name = req.getParameter("name");
+		Integer price = Integer.parseInt(req.getParameter("price"));
+		expenseService.update(id,name,price,date);
 		res.sendRedirect("view");
 	}
 }

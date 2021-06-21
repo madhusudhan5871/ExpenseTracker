@@ -11,9 +11,9 @@ import com.google.inject.ImplementedBy;
 
 @ImplementedBy(ExpenseServiceImpl.class)
 public interface ExpenseService {
-	void add(HttpServletRequest req) throws ParseException;
-	List<Expense> viewAll(HttpServletRequest req);
+	void add(String name,Integer price,String date,String category) throws ParseException;
+	List<Expense> viewAll(String searchName);
 	Expense view(Integer id);
 	void delete(Integer id);
-	void update(@Context HttpServletRequest req) throws ParseException;	
+	void update(Integer id,String name,Integer price,String date) throws ParseException;	
 }
