@@ -20,4 +20,10 @@ public class CategoryServiceImpl implements CategoryService {
 		List<Category> categoryList = em.get().createQuery("from Category").getResultList();
 		return categoryList;
 	}
+	
+	public void add(String categoryName) {
+		Category category = new Category();
+		category.setCategoryName(categoryName);
+		em.get().persist(category);
+	}
 }

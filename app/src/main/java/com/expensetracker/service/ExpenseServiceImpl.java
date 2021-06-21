@@ -32,13 +32,8 @@ public class ExpenseServiceImpl implements ExpenseService{
 			expense.setName(req.getParameter("name"));
 			expense.setPrice(Integer.parseInt(req.getParameter("price")));
 			//expense.setCategory(req.getParameter("category"));
-			Category category;
-			if(req.getParameter("newCategory").isEmpty()) {
-				category = em.get().find(Category.class, req.getParameter("category"));
-			}else {
-				category = new Category();
-				category.setCategoryName(req.getParameter("newCategory"));
-			}expense.setCategory(category);
+			Category category = em.get().find(Category.class, req.getParameter("category"));;
+			expense.setCategory(category);
 			Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("date"));
 			expense.setDate(date1);
 			em.get().persist(expense);

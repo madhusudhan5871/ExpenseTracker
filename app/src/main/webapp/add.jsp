@@ -53,7 +53,14 @@
     <input type="number" name="price" required class="form-control" id="exampleInputPassword1" placeholder="What's the price?">
   </div>
    <div class="form-group">
-    <label for="exampleFormControlSelect1">Add to an existing category</label>
+    <label for="exampleFormControlSelect1">Add your expense to an existing category  or 
+    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal">
+  Create a new category
+</button>
+
+
+
+    </label>
     <select class="form-control" id="exampleFormControlSelect1" name=category>
       <% 
       List<Category> categoryList = (ArrayList<Category>)request.getAttribute("categoryList");
@@ -63,10 +70,7 @@
        %>
     </select>
   </div>
-   <div class="form-group">
-    <label for="exampleInputPassword2">If you want this to classify under a new category, Please enter it below, otherwise leave blank</label>
-    <input type="text" name="newCategory" class="form-control" id="exampleInputPassword2" placeholder="Category">
-  </div>
+   
      <div class="form-group">
     <label for="exampleInputPasswor32">Date</label>
     <input type="date" name="date" required class="form-control" id="exampleInputPassword32" placeholder="Date">
@@ -89,5 +93,47 @@
       </footer>
     </div>
 
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="/app/assets/js/vendor/popper.min.js"></script>
+    <script src="/app/assets/bootstrap.min.js"></script>
+    <script>
+      Holder.addTheme('thumb', {
+        bg: '#55595c',
+        fg: '#eceeef',
+        text: 'Thumbnail'
+      });
+    </script>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New Category</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/app/category/add" method="post">
+  <div class="form-group">
+    <label for="exampleInputEmail12">What's the new category?</label>
+    <input type="text" name = "name" required class="form-control" id="exampleInputEmail12" placeholder="Enter the new category">
+  </div>
+ 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form></div>
+    </div>
+  </div>
+</div>
+
+
   </body>
 </html>
+
+
