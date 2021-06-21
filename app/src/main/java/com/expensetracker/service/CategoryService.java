@@ -8,5 +8,6 @@ import com.google.inject.ImplementedBy;
 @ImplementedBy(CategoryServiceImpl.class)
 public interface CategoryService {
 	List<Category> findAll();
+
 	void add(String categoryName);
 }

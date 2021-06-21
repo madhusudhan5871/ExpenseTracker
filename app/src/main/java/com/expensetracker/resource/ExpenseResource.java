@@ -22,7 +22,6 @@ import com.google.inject.Singleton;
 @Singleton
 @Path("/expense")
 public class ExpenseResource {
-
 	@Inject
 	private ExpenseService expenseService;
 
@@ -37,7 +36,7 @@ public class ExpenseResource {
 		String date = req.getParameter("date");
 		String category = req.getParameter("category");
 		Integer price = Integer.parseInt(req.getParameter("price"));
-		expenseService.add(name,price,date,category);
+		expenseService.add(name, price, date, category);
 		res.sendRedirect("view");
 	}
 
@@ -63,7 +62,8 @@ public class ExpenseResource {
 	@Path("view")
 	public void viewAll(@Context HttpServletRequest req, @Context HttpServletResponse res)
 			throws ServletException, IOException {
-		String searchName = req.getParameterMap().containsKey("searchname")?"%"+req.getParameter("searchname")+"%":"%";
+		String searchName = req.getParameterMap().containsKey("searchname") ? "%" + req.getParameter("searchname") + "%"
+				: "%";
 		req.setAttribute("expenseList", expenseService.viewAll(searchName));
 		req.getRequestDispatcher("/view.jsp").forward(req, res);
 	}
@@ -84,7 +84,7 @@ public class ExpenseResource {
 		String date = req.getParameter("date");
 		String name = req.getParameter("name");
 		Integer price = Integer.parseInt(req.getParameter("price"));
-		expenseService.update(id,name,price,date);
+		expenseService.update(id, name, price, date);
 		res.sendRedirect("view");
 	}
 }

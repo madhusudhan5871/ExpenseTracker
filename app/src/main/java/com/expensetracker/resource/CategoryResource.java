@@ -18,7 +18,7 @@ import com.google.inject.Singleton;
 public class CategoryResource {
 	@Inject
 	private CategoryService categoryService;
-	
+
 	@POST
 	@Path("add")
 	public void add(@Context HttpServletRequest req, @Context HttpServletResponse res)
